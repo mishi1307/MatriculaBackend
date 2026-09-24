@@ -1,0 +1,28 @@
+{
+  "info": {
+    "name": "EduAndes Matrícula API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [{ "key": "baseUrl", "value": "http://localhost:8080" }],
+  "item": [
+    { "name": "Health", "request": { "method": "GET", "url": "{{baseUrl}}/api/v1/health" } },
+    { "name": "Carreras", "item": [
+      { "name": "Listar", "request": { "method": "GET", "url": "{{baseUrl}}/api/v1/carreras" } },
+      { "name": "Crear", "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }], "body": { "mode": "raw", "raw": "{\"nombre\":\"Ingeniería de Sistemas\",\"descripcion\":\"EP Sistemas\",\"estado\":true}" }, "url": "{{baseUrl}}/api/v1/carreras" } },
+      { "name": "Nombre duplicado (409)", "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }], "body": { "mode": "raw", "raw": "{\"nombre\":\"  ingeniería de sistemas  ",\"estado\":true}" }, "url": "{{baseUrl}}/api/v1/carreras" } }
+    ]},
+    { "name": "Cursos", "item": [
+      { "name": "Buscar combinando filtros", "request": { "method": "GET", "url": "{{baseUrl}}/api/v1/cursos/buscar?carreraId=1&ciclo=4&conVacantes=true&orden=vacantes&dir=desc" } },
+      { "name": "Crear inválido (400)", "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }], "body": { "mode": "raw", "raw": "{\"codigo\":\"is-40\",\"nombre\":\"X\",\"creditos\":0,\"ciclo\":11,\"vacantes\":-1,\"carreraId\":99}" }, "url": "{{baseUrl}}/api/v1/cursos" } },
+      { "name": "Crear con carrera inexistente (404)", "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }], "body": { "mode": "raw", "raw": "{\"codigo\":\"ZZ999\",\"nombre\":\"Curso de prueba\",\"creditos\":3,\"ciclo\":4,\"vacantes\":10,\"carreraId\":99}" }, "url": "{{baseUrl}}/api/v1/cursos" } }
+    ]},
+    { "name": "Estudiantes", "request": { "method": "GET", "url": "{{baseUrl}}/api/v1/estudiantes" } },
+    { "name": "Matrículas", "item": [
+      { "name": "Registrar Ana (3 cursos)", "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }], "body": { "mode": "raw", "raw": "{\"estudianteId\":1,\"periodo\":\"2026-2\",\"detalles\":[{\"cursoId\":1},{\"cursoId\":2},{\"cursoId\":5}]}" }, "url": "{{baseUrl}}/api/v1/matriculas" } },
+      { "name": "Listar matrículas", "request": { "method": "GET", "url": "{{baseUrl}}/api/v1/matriculas" } },
+      { "name": "Detalle de matrícula 1", "request": { "method": "GET", "url": "{{baseUrl}}/api/v1/matriculas/1" } },
+      { "name": "Anular matrícula 1", "request": { "method": "PATCH", "url": "{{baseUrl}}/api/v1/matriculas/1/anular" } },
+      { "name": "Repetir matrícula del estudiante en el periodo (409)", "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }], "body": { "mode": "raw", "raw": "{\"estudianteId\":1,\"periodo\":\"2026-2\",\"detalles\":[{\"cursoId\":1}]}" }, "url": "{{baseUrl}}/api/v1/matriculas" } }
+    ]}
+  ]
+}
