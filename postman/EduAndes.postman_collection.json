@@ -9,7 +9,7 @@
     { "name": "Carreras", "item": [
       { "name": "Listar", "request": { "method": "GET", "url": "{{baseUrl}}/api/v1/carreras" } },
       { "name": "Crear", "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }], "body": { "mode": "raw", "raw": "{\"nombre\":\"Ingeniería de Sistemas\",\"descripcion\":\"EP Sistemas\",\"estado\":true}" }, "url": "{{baseUrl}}/api/v1/carreras" } },
-      { "name": "Nombre duplicado (409)", "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }], "body": { "mode": "raw", "raw": "{\"nombre\":\"  ingeniería de sistemas  ",\"estado\":true}" }, "url": "{{baseUrl}}/api/v1/carreras" } }
+      { "name": "Nombre duplicado (409)", "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }], "body": { "mode": "raw", "raw": "{\"nombre\":\"  ingeniería de sistemas  \",\"estado\":true}" }, "url": "{{baseUrl}}/api/v1/carreras" } }
     ]},
     { "name": "Cursos", "item": [
       { "name": "Buscar combinando filtros", "request": { "method": "GET", "url": "{{baseUrl}}/api/v1/cursos/buscar?carreraId=1&ciclo=4&conVacantes=true&orden=vacantes&dir=desc" } },
